@@ -1,5 +1,68 @@
 ## Getting started
 
+### Method 1: Docker Setup
+
+This is the recommended method for a quick and consistent setup. Docker will handle running all services (backend, frontend, and database) with a single command.
+
+#### Step 1: Clone the Repository
+
+Clone the project from GitHub and navigate into the project directory.
+
+#### Step 1: Clone the repository
+
+```bash
+git clone https://github.com/idurar/idurar-erp-crm.git
+cd idurar-erp-crm
+```
+
+#### Step 2: Configure Environment Files
+
+Create the necessary .env files for your backend and Docker Compose services.
+
+1. **Backend Environment File:**
+
+    - Create a file named .env inside the backend/ directory.
+    - Add the following line to the file:
+        ```text
+        DATABASE="mongodb://<username>:<password>@db:27017/erp-app?authSource=admin"
+        JWT_SECRET="your_private_jwt_secret_key"
+        ```
+    - This URI uses username as the root user, password as the root password and db as the hostname, which is the service name of the MongoDB container in docker-compose.yml.
+2. **Frontend Environment File:**
+    - Create a file named .env inside the frontend/ directory.
+    - Add the following line to the file:
+        ```text
+        VITE_FILE_BASE_URL="http://localhost:8888/"
+        VITE_BACKEND_SERVER="http://localhost:8888/"
+        PROD=false
+        ```
+3. **Docker Compose Environment File:**
+    - Create a file named .env in the root directory of your project (next to docker-compose.yml).
+    - Add the following variables to this file:
+        ```text
+        MONGO_ROOT_USERNAME=admin
+        MONGO_ROOT_PASSWORD=secret
+        FRONTEND_PORT=3000
+        BACKEND_PORT=8000
+        ```
+#### Step 3: Run the Application
+With Docker and Docker Compose installed, run the following command from the root directory of your project:
+```bash
+docker compose up --build
+```
+
+This command will build the Docker images for your services, and then start all the containers.
+
+#### Step 4: Access the Application
+
+Once the services are running, you can access the application in your web browser at `http://localhost:<your_frontend_port>` (e.g., `http://localhost:3000`).
+
+---
+
+### Method 2: Manual Setup
+
+This method guides you through setting up and running each service locally without using Docker.
+
 #### Step 1: Clone the repository
 
 ```bash
